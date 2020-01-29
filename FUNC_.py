@@ -5,6 +5,7 @@ import glob
 import cv2
 import sys
 from scipy import stats
+from scipy.signal import argrelextrema
 
 ##########################################################################
 #DHM background image analysis
@@ -149,6 +150,25 @@ def average_profile(theta_start, theta_end, delta_theta, xc, yc, s, img):
     haha = haha/count
 
     haha1 = haha-np.mean(haha)
+
+    theta_n = len(np.arange(theta_start, theta_end, delta_theta))
+    radius_n = s
+
+    output = np.zeros((theta_n,radius_n), dtype = int)
+
+    for i in range(theta_n):
+        theta = theta_start + (i*delta_theta)
+        for j in range(radius_n):
+            xx = int(round(xc+(j*np.cos(np.deg2rad(-theta)))))
+            yy = int(round(yc+(j*np.sin(np.deg2rad(-theta)))))
+            output[i,j] = img[yy,xx]
+
+    index_minima_horizontal = np.array(argrelextrema(output, np.less, axis=0)).T
+
+    print(theta_n, radius_n)
+    plt.imshow(output, cmap='gray')
+    plt.scatter(index_minima_horizontal[:,1], index_minima_horizontal[:,0], marker='.', color='red')
+    plt.show()
 
     return haha1
 

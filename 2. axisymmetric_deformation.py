@@ -8,7 +8,7 @@ from FUNC_ import read_info_file
 from FUNC_ import max_ray_pixels
 from FUNC_ import average_profile
 
-f = r'/media/devici/srinath_dhm02/srinath_dhm/impact_over_thin_films/speed1/00200cs0005mum_r1/2018.09.09 20-17'
+f = r'/media/devici/Samsung_T5/srinath_dhm/impact_over_thin_films/speed1/00100cs0010mum_r1/2018.09.09 18-53'
 
 avg_back, avg_def, img1, img2, img3, xc, yc, t = read_info_file(f)
 
@@ -29,11 +29,11 @@ s = max_ray_pixels(xc,yc,x_px,y_px)
 delta_theta = round(np.degrees(np.arcsin(16/((x_px + y_px)/1))),1)              #delta_theta = 0.5 degrees
 n = int(round(360/delta_theta))                                                 #n = 720
 
-theta = 22.5
-theta_inc = 45 + 22.5
-
-theta_start = theta - theta_inc
-theta_end = theta + theta_inc
+# theta = 22.5
+# theta_inc = 45 + 22.5
+#
+# theta_start = theta - theta_inc
+# theta_end = theta + theta_inc
 
 b = np.zeros((img3-img2-1,s))
 b1 = np.zeros((img3-img2-1,s))
